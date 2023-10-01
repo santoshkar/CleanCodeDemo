@@ -14,6 +14,7 @@ public class DispatchInformation {
 
 	private static final int ID_PURCHASE_DEPARTMENT = 1;
 	private static final int ID_SALES_DEPARTMENT = 5;
+	private static final String SESSION_ATTRIBUTE_DEPT_LIST = "deptList";
 
 	public void sendInformation(HttpServletRequest req) throws Exception {
 
@@ -21,7 +22,7 @@ public class DispatchInformation {
 		Map<String, String> purchaseEmp = null;
 
 		@SuppressWarnings("unchecked")
-		List<Department> deptList = (List<Department>) req.getSession().getAttribute("deptList");
+		List<Department> deptList = (List<Department>) req.getSession().getAttribute(SESSION_ATTRIBUTE_DEPT_LIST);
 		log.debug("List = " + deptList);
 		log.debug(deptList.size());
 
