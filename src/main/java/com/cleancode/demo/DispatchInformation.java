@@ -48,16 +48,12 @@ public class DispatchInformation {
 
 					System.out.println(i);
 					dpt = lst.get(i);
-					Long id = dpt.getId();
-					
-					Employee e = dpt.getEmployees().get(j);
-					System.out.println("Employee" + e);
+					int id = dpt.getId();
 
 					if (id == 1) {
 						if (dpt.getEmployees().size() > 0) {
 							for (int j = 0; j < dpt.getEmployees().size(); j++) {
 								// j++
-
 								// Creating object of employee and putting the mobile number and info message
 								Employee e = dpt.getEmployees().get(j);
 								System.out.println("Employee" + e);
@@ -68,7 +64,7 @@ public class DispatchInformation {
 						if (dpt.getEmployees().size() > 0) {
 							for (int j = 0; j < dpt.getEmployees().size(); j++) {
 								// Creating object of employee and putting the mobile number and info message
-								
+								Employee e = dpt.getEmployees().get(j);
 								map2.put(e.getMobileNo(), e.getInfo());
 							} // End for
 						} // End If
