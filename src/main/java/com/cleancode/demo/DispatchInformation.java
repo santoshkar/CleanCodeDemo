@@ -1,80 +1,51 @@
 package com.cleancode.demo;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 public class DispatchInformation {
 
-	// Purchase Service
-	PurchaseService pSrvc;
+	private PurchaseService purchaseService;
+	private SalesService salesService;
 
-	// sales service
-	SalesService slSrvc;
+	private static final int ID_PURCHASE_DEPARTMENT = 1;
+	private static final int ID_SALES_DEPARTMENT = 2;
 
-	// AutomatedService atmSrvc;
+	public void sendInformation(HttpServletRequest req) throws Exception {
+		Map<String, String> salesEmp = null;
+		Map<String, String> purchaseEmp = null;
 
-	// Checking the value from the input
-	// private void checkVal(String input){
-	// System.out.println(input);
-	// //Logic for the check val
-	// }
-
-	public void send(HttpServletRequest req) throws Exception {
-		System.out.println("Method calling send");
-		Map<String, String> map1 = new HashMap<String, String>();
-		Map<String, String> map2 = new HashMap<String, String>();
-		Department dpt = null;
-
-		// if (dept==null || dept.getEmployees() == null ||
-		// dept.getEmployees().isEmpty()){
-		// return empMap();
-		// }
-
-		// This is getting the department list from the session
 		if (req.getSession() != null && req.getSession().getAttribute("deptList") != null) {
 			@SuppressWarnings("unchecked")
-			List<Department> lst = (List<Department>) req.getSession().getAttribute("deptList");
-			System.out.println("List = " + lst);
+			List<Department> deptList = (List<Department>) req.getSession().getAttribute("deptList");
+			log.debug("List = " + deptList);
+			log.debug(deptList.size());
 
-			System.out.println(lst.size());
+			if (deptList == null || deptList.isEmpty()) {
+				throw new EmptyDepartmentException("Empty Department found");
+			}
 
-			// If Condition
-			if (lst != null && lst.size() > 0) {
+			Map<String, String> map;
+			for (Department dept : deptList) {
 
-				for (int i = 0; i < lst.size(); i++) {
+				map = new EmployeeBuilder().setDepartment(dept).build();
 
-					System.out.println(i);
-					dpt = lst.get(i);
-					Long id = dpt.getId();
+				switch (dept.getId()) {
+				case ID_PURCHASE_DEPARTMENT:
+					purchaseEmp = map;
+					break;
+				case ID_SALES_DEPARTMENT:
+					salesEmp = map;
+					break;
+				}
 
-					if (id == 1) {
-						if (dpt.getEmployees().size() > 0) {
-							for (int j = 0; j < dpt.getEmployees().size(); j++) {
-								// j++
-
-								// Creating object of employee and putting the mobile number and info message
-								Employee e = dpt.getEmployees().get(j);
-								System.out.println("Employee" + e);
-								map1.put(e.getMobileNo(), e.getInfo());
-							} // End for
-						} // End If
-					} // End else
-				} // End for
-
-				// Now sending the information
-				slSrvc.sendInfo(map1);
-				pSrvc.sendInfo(map2);
-			} else {
-				// else
-				// throwing exception if list is null
-
-				throw new EmptyDepartmentException("Empty Department Found");
-			} // End main if
-
+				purchaseService.sendInfo(purchaseEmp);
+				salesService.sendInfo(salesEmp);
+			}
 		}
 	}
-
 }

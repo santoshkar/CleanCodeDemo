@@ -4,16 +4,15 @@ import java.util.List;
 
 public abstract class Department {
 
-	private long id;
-	
-	public abstract List<Employee> getEmployees();
-		
+	private int id;
 
-	public void setId(long id){
+	public abstract List<Employee> getEmployees();
+
+	public void setId(int id) {
 		this.id = id;
 	}
-	
-	public long getId(){
+
+	public int getId() {
 		return id;
 	}
 }
