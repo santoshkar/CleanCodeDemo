@@ -13,7 +13,7 @@ public class DispatchInformation {
 	private SalesService salesService;
 
 	private static final int ID_PURCHASE_DEPARTMENT = 1;
-	private static final int ID_SALES_DEPARTMENT = 2;
+	private static final int ID_SALES_DEPARTMENT = 5;
 
 	public void sendInformation(HttpServletRequest req) throws Exception {
 
