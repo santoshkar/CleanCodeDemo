@@ -16,36 +16,35 @@ public class DispatchInformation {
 	private static final int ID_SALES_DEPARTMENT = 2;
 
 	public void sendInformation(HttpServletRequest req) throws Exception {
+
 		Map<String, String> salesEmp = null;
 		Map<String, String> purchaseEmp = null;
 
-		if (req.getSession() != null && req.getSession().getAttribute("deptList") != null) {
-			@SuppressWarnings("unchecked")
-			List<Department> deptList = (List<Department>) req.getSession().getAttribute("deptList");
-			log.debug("List = " + deptList);
-			log.debug(deptList.size());
+		@SuppressWarnings("unchecked")
+		List<Department> deptList = (List<Department>) req.getSession().getAttribute("deptList");
+		log.debug("List = " + deptList);
+		log.debug(deptList.size());
 
-			if (deptList == null || deptList.isEmpty()) {
-				throw new EmptyDepartmentException("Empty Department found");
+		if (deptList == null || deptList.isEmpty()) {
+			throw new EmptyDepartmentException("Empty Department found");
+		}
+
+		Map<String, String> map;
+		for (Department dept : deptList) {
+
+			map = new EmployeeBuilder().setDepartment(dept).build();
+
+			switch (dept.getId()) {
+			case ID_PURCHASE_DEPARTMENT:
+				purchaseEmp = map;
+				break;
+			case ID_SALES_DEPARTMENT:
+				salesEmp = map;
+				break;
 			}
 
-			Map<String, String> map;
-			for (Department dept : deptList) {
-
-				map = new EmployeeBuilder().setDepartment(dept).build();
-
-				switch (dept.getId()) {
-				case ID_PURCHASE_DEPARTMENT:
-					purchaseEmp = map;
-					break;
-				case ID_SALES_DEPARTMENT:
-					salesEmp = map;
-					break;
-				}
-
-				purchaseService.sendInfo(purchaseEmp);
-				salesService.sendInfo(salesEmp);
-			}
+			purchaseService.sendInfo(purchaseEmp);
+			salesService.sendInfo(salesEmp);
 		}
 	}
 }
