@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.cleancode.demo;
 
 public abstract class Employee {
 	

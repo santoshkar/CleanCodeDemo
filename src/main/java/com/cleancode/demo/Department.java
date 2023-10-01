@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.cleancode.demo;
 
 import java.util.List;
 

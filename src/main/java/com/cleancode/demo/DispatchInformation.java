@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.cleancode.demo;
 
 import java.util.HashMap;
 import java.util.List;
