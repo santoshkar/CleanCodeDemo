@@ -61,6 +61,15 @@ public class DispatchInformation {
 								map1.put(e.getMobileNo(), e.getInfo());
 							} // End for
 						} // End If
+					} else if (id == 5) {
+						if (dpt.getEmployees().size() > 0) {
+							for (int j = 0; j < dpt.getEmployees().size(); j++) {
+								// Creating object of employee and putting the mobile number and info message
+								Employee e = dpt.getEmployees().get(j);
+								System.out.println("Employee" + e);
+								map1.put(e.getMobileNo(), e.getInfo());
+							} // End for
+						} // End If
 					} // End else
 				} // End for
 
