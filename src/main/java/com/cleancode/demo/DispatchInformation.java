@@ -2,14 +2,22 @@ package com.cleancode.demo;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
+@Service
 public class DispatchInformation {
 
+	@Autowired
 	private PurchaseService purchaseService;
+	
+	@Autowired
 	private SalesService salesService;
 
 	private static final int ID_PURCHASE_DEPARTMENT = 1;
@@ -17,12 +25,15 @@ public class DispatchInformation {
 	private static final String SESSION_ATTRIBUTE_DEPT_LIST = "deptList";
 
 	public void sendInformation(HttpServletRequest req) throws Exception {
+		
+		this.purchaseService = Objects.requireNonNull(purchaseService, "purchaseService must not be null");
+        this.salesService = Objects.requireNonNull(salesService, "salesService must not be null");
 
 		Map<String, String> salesEmp = null;
 		Map<String, String> purchaseEmp = null;
 
-		@SuppressWarnings("unchecked")
-		List<Department> deptList = (List<Department>) req.getSession().getAttribute(SESSION_ATTRIBUTE_DEPT_LIST);
+		List<Department> deptList = getDepartmentListFromSession(req);
+
 		log.debug("List = " + deptList);
 		log.debug(deptList.size());
 
@@ -44,8 +55,27 @@ public class DispatchInformation {
 				break;
 			}
 
-			purchaseService.sendInfo(purchaseEmp);
-			salesService.sendInfo(salesEmp);
+			this.sendInfoToSalesService(purchaseEmp);
+			this.sendInfoToPurchaseService(salesEmp);
 		}
+	}
+
+	private List<Department> getDepartmentListFromSession(HttpServletRequest request) {
+		if (request.getSession() != null && request.getSession().getAttribute(SESSION_ATTRIBUTE_DEPT_LIST) != null) {
+			@SuppressWarnings("unchecked")
+			List<Department> departmentList = (List<Department>) request.getSession()
+					.getAttribute(SESSION_ATTRIBUTE_DEPT_LIST);
+			System.out.println("List = " + departmentList);
+			return departmentList;
+		}
+		return List.of();
+	}
+
+	private void sendInfoToSalesService(Map<String, String> infoMap) {
+		salesService.sendInfo(infoMap);
+	}
+
+	private void sendInfoToPurchaseService(Map<String, String> infoMap) {
+		purchaseService.sendInfo(infoMap);
 	}
 }
