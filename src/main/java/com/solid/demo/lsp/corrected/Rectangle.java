@@ -1,4 +1,4 @@
-package com.cleancode.demo.lsp.corrected;
+package com.solid.demo.lsp.corrected;
 class Rectangle implements Shape {
     protected int width;
     protected int height;

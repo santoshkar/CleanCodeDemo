@@ -1,4 +1,4 @@
-package com.cleancode.demo.lsp.violation;
+package com.solid.demo.lsp.violation;
 class Rectangle {
     protected int width;
     protected int height;

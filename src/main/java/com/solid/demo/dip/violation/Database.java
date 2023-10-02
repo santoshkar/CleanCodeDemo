@@ -1,4 +1,4 @@
-package com.cleancode.demo.dip.violation;
+package com.solid.demo.dip.violation;
 class Database {
     public void saveData(String data) {}
 }

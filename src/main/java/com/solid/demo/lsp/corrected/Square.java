@@ -1,4 +1,4 @@
-package com.cleancode.demo.lsp.corrected;
+package com.solid.demo.lsp.corrected;
 class Square implements Shape {
     protected int side;
 

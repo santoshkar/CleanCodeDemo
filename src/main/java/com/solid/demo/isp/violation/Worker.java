@@ -1,4 +1,4 @@
-package com.cleancode.demo.isp.violation;
+package com.solid.demo.isp.violation;
 interface Worker {
     void work();
     void eat();

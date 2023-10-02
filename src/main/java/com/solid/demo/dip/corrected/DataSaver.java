@@ -1,4 +1,4 @@
-package com.cleancode.demo.dip.corrected;
+package com.solid.demo.dip.corrected;
 interface DataSaver {
     void saveData(String data);
 }

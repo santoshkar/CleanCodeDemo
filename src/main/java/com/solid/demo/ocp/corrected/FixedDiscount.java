@@ -1,4 +1,4 @@
-package com.cleancode.demo.ocp.corrected;
+package com.solid.demo.ocp.corrected;
 public class FixedDiscount implements Discount {
 
     @Override

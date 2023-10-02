@@ -1,4 +1,4 @@
-package com.cleancode.demo.isp.corrected;
+package com.solid.demo.isp.corrected;
 interface Workable {
     void work();
 }

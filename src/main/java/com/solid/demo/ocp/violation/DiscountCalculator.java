@@ -1,4 +1,4 @@
-package com.cleancode.demo.ocp.violation;
+package com.solid.demo.ocp.violation;
 public class DiscountCalculator {
     public double calculateDiscount(double totalPrice, String discountType) {
         if (discountType.equals("percentage")) {
