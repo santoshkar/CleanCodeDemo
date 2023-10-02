@@ -24,10 +24,10 @@ public class DispatchInformation {
 	private static final int ID_SALES_DEPARTMENT = 5;
 	private static final String SESSION_ATTRIBUTE_DEPT_LIST = "deptList";
 
-	public void sendInformation(HttpServletRequest req) throws Exception {
+	public void sendInformationToPurchaseAndSalesDepartment(HttpServletRequest req) throws Exception {
 		
 		this.purchaseService = Objects.requireNonNull(purchaseService, "purchaseService must not be null");
-        this.salesService = Objects.requireNonNull(salesService, "salesService must not be null");
+		this.salesService = Objects.requireNonNull(salesService, "salesService must not be null");
 
 		Map<String, String> salesEmp = null;
 		Map<String, String> purchaseEmp = null;
