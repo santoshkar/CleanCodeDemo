@@ -16,7 +16,7 @@ public class EmployeeBuilder {
 		return this;
 	}
 
-	public Map<String, String> build() throws EmptyDepartmentException {
+	public Map<String, String> buildMap() throws EmptyDepartmentException {
 		if(ObjectUtils.isEmpty(dept))
 			throw new EmptyDepartmentException();
 		
