@@ -44,7 +44,7 @@ public class DispatchInformation {
 		Map<String, String> map;
 		for (Department dept : deptList) {
 
-			map = new EmployeeBuilder().setDepartment(dept).build();
+			map = new EmployeeBuilder().setDepartment(dept).buildMap();
 
 			switch (dept.getId()) {
 			case ID_PURCHASE_DEPARTMENT:
